@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de Partidões</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <h1>🫧 Calendário de Partidões</h1>
+        <p>Confira as datas disponíveis e ocupadas!</p>
+
+        <div class="calendario">
+            <div class="navegacao">
+                <button id="anterior">❮</button>
+                <h2 id="mes-ano"></h2>
+                <button id="proximo">❯</button>
+            </div>
+
+            <div class="dias-semana">
+                <span>Dom</span>
+                <span>Seg</span>
+                <span>Ter</span>
+                <span>Qua</span>
+                <span>Qui</span>
+                <span>Sex</span>
+                <span>Sáb</span>
+            </div>
+
+            <div id="dias" class="dias"></div>
+        </div>
+
+        <div class="legenda">
+            <span>🟢 Disponível</span>
+            <span>🔴 Ocupado</span>
+        </div>
+
+        <div id="detalhes" class="detalhes">
+            Selecione uma data para ver as informações.
+        </div>
+    </main>
+
+    
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
