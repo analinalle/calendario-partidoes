@@ -1,12 +1,10 @@
 
-/* ========================================
-   CALENDÁRIO DE PARTIDÕES
-   Supabase + Telegram Mini App
-======================================== */
 
-// 1. CONFIGURAÇÃO DO SUPABASE
+
+
 
 const SUPABASE_URL = "https://mobuouauxjknoasjvwgi.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_NkklrlYo6XN1c3qKGmNUYg_jqlvVE0V";
 // 2. INTEGRAÇÃO COM O TELEGRAM
 
 const telegram = window.Telegram?.WebApp;
@@ -16,7 +14,7 @@ if (telegram) {
     telegram.expand();
 }
 
-// 3. TEMA CLARO E ESCURO
+//
 
 const botaoTema = document.getElementById("alternar-tema");
 const preferenciaEscura = window.matchMedia("(prefers-color-scheme: dark)");
@@ -55,7 +53,7 @@ preferenciaEscura.addEventListener("change", evento => {
     }
 });
 
-// 3. VARIÁVEIS DO CALENDÁRIO
+//
 
 let eventos = {};
 let carregando = false;
@@ -63,7 +61,7 @@ let erroCarregamento = false;
 let dataSelecionada = null;
 let usuarioAdmin = false;
 
-// Começar automaticamente no mês atual
+
 const hoje = new Date();
 
 let dataAtual = new Date(
@@ -72,14 +70,14 @@ let dataAtual = new Date(
     1
 );
 
-// Elementos da página
+
 
 const titulo = document.getElementById("mes-ano");
 const anoCalendario = document.getElementById("ano-calendario");
 const diasContainer = document.getElementById("dias");
 const detalhes = document.getElementById("detalhes");
 
-// 4. CARREGAR EVENTOS DO SUPABASE
+
 
 async function carregarEventos() {
     carregando = true;
@@ -90,7 +88,8 @@ async function carregarEventos() {
 
     try {
         const headers = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            apikey: SUPABASE_PUBLISHABLE_KEY
         };
 
         if (telegram?.initData) {
@@ -150,8 +149,9 @@ async function carregarEventos() {
         detalhes.replaceChildren();
 
         const mensagem = document.createElement("p");
-        mensagem.textContent =
-            "Não foi possível carregar os eventos.";
+        mensagem.textContent = erro instanceof Error
+            ? `Não foi possível carregar os eventos: ${erro.message}`
+            : "Não foi possível carregar os eventos.";
 
         const botao = document.createElement("button");
         botao.type = "button";
@@ -164,7 +164,7 @@ async function carregarEventos() {
     }
 }
 
-// 5. MOSTRAR O CALENDÁRIO
+
 
 function mostrarCalendario() {
     diasContainer.replaceChildren();
@@ -187,7 +187,7 @@ function mostrarCalendario() {
     const primeiroDia = new Date(ano, mes, 1).getDay();
     const totalDias = new Date(ano, mes + 1, 0).getDate();
 
-    // Espaços antes do primeiro dia do mês
+    
 
     for (let i = 0; i < primeiroDia; i++) {
         const vazio = document.createElement("span");
@@ -197,7 +197,7 @@ function mostrarCalendario() {
         diasContainer.appendChild(vazio);
     }
 
-    // Criar os botões dos dias
+  
 
     for (let dia = 1; dia <= totalDias; dia++) {
         const chave =
@@ -260,7 +260,7 @@ function mostrarCalendario() {
     }
 }
 
-// 6. MOSTRAR OS DETALHES DA DATA
+
 
 function mostrarDetalhes(data, evento) {
     detalhes.replaceChildren();
@@ -271,7 +271,7 @@ function mostrarDetalhes(data, evento) {
     tituloDetalhes.textContent = dataFormatada;
     detalhes.appendChild(tituloDetalhes);
 
-    // Verificar se a data já passou
+    
 
     const [ano, mes, dia] = data.split("-").map(Number);
     const dataEscolhida = new Date(ano, mes - 1, dia);
@@ -281,14 +281,14 @@ function mostrarDetalhes(data, evento) {
         hoje.getDate()
     );
 
-    // Data sem evento
+   
 
     if (!evento) {
         const mensagem = document.createElement("p");
         mensagem.classList.add("status-data");
 
         if (dataEscolhida < dataHoje) {
-            mensagem.textContent = "Esta data já passou.";
+            mensagem.textContent = "Esta data já passou!";
         } else {
             mensagem.textContent = "Data disponível!";
         }
@@ -297,11 +297,11 @@ function mostrarDetalhes(data, evento) {
         return;
     }
 
-    // Data ocupada
+    
 
     const status = document.createElement("p");
     status.classList.add("status-ocupado");
-    status.textContent = "Data ocupada";
+    status.textContent = "Data ocupada!";
     detalhes.appendChild(status);
 
     if (!usuarioAdmin) {
@@ -322,7 +322,7 @@ function mostrarDetalhes(data, evento) {
     }
 }
 
-// 7. CRIAR INFORMAÇÕES DOS EVENTOS
+
 
 function adicionarInformacao(rotulo, valor) {
     const paragrafo = document.createElement("p");
@@ -336,7 +336,7 @@ function adicionarInformacao(rotulo, valor) {
     detalhes.appendChild(paragrafo);
 }
 
-// 8. NAVEGAR ENTRE OS MESES
+
 
 document.getElementById("anterior").addEventListener("click", () => {
     dataAtual.setMonth(dataAtual.getMonth() - 1);
@@ -356,7 +356,7 @@ document.getElementById("proximo").addEventListener("click", () => {
         "Selecione uma data para ver as informações.";
 });
 
-// 9. ATUALIZAR QUANDO VOLTAR À PÁGINA
+
 
 document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") {
@@ -364,6 +364,6 @@ document.addEventListener("visibilitychange", () => {
     }
 });
 
-// 10. INICIAR O CALENDÁRIO
+
 
 carregarEventos();
