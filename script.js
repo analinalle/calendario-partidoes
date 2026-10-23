@@ -1,8 +1,3 @@
-
-
-
-
-
 const SUPABASE_URL = "https://mobuouauxjknoasjvwgi.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_NkklrlYo6XN1c3qKGmNUYg_jqlvVE0V";
 // 2. INTEGRAÇÃO COM O TELEGRAM
