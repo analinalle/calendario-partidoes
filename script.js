@@ -1,20 +1,11 @@
-
-
-
-
-
 const SUPABASE_URL = "https://mobuouauxjknoasjvwgi.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_NkklrlYo6XN1c3qKGmNUYg_jqlvVE0V";
-// 2. INTEGRAÇÃO COM O TELEGRAM
-
 const telegram = window.Telegram?.WebApp;
 
 if (telegram) {
     telegram.ready();
     telegram.expand();
 }
-
-//
 
 const botaoTema = document.getElementById("alternar-tema");
 const preferenciaEscura = window.matchMedia("(prefers-color-scheme: dark)");
@@ -52,8 +43,6 @@ preferenciaEscura.addEventListener("change", evento => {
         aplicarTema(evento.matches ? "escuro" : "claro");
     }
 });
-
-//
 
 let eventos = {};
 let carregando = false;
