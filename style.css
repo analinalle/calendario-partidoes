@@ -1,0 +1,595 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    color-scheme: light;
+    --fundo: #f7a0b8;
+    --painel: rgba(250, 245, 236, 0.9);
+    --rosa-claro: #fbb6c4;
+    --rosa: #f7a0b8;
+    --rosa-forte: #ce6383;
+    --creme: #faf5ec;
+    --pessego: #fae9d7;
+    --texto: #634653;
+    --texto-suave: #8d6877;
+    --verde: #c9dea4;
+    --vermelho: #f7c2ce;
+    --dourado: #d5a96b;
+}
+
+body {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    margin: 0;
+    padding: 26px 0;
+    background:
+        radial-gradient(ellipse at 18% 16%, rgba(250, 245, 236, 0.86), transparent 31%),
+        radial-gradient(ellipse at 85% 30%, rgba(247, 182, 196, 0.9), transparent 38%),
+        radial-gradient(ellipse at 24% 82%, rgba(250, 233, 215, 0.9), transparent 34%),
+        radial-gradient(ellipse at 88% 91%, rgba(247, 160, 184, 0.74), transparent 40%),
+        repeating-linear-gradient(117deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 5px),
+        linear-gradient(145deg, #f7a0b8, #fbb6c4 48%, #fae9d7);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body::before {
+    position: fixed;
+    z-index: -1;
+    content: "";
+    pointer-events: none;
+}
+
+body::before {
+    inset: 0;
+    background-image: url("assets/sakura-reference.jpg");
+    background-repeat: repeat;
+    background-size: 220px 220px;
+    mix-blend-mode: multiply;
+    opacity: 0.24;
+}
+
+.barra-superior {
+    position: sticky;
+    top: 12px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    width: min(100% - 32px, 540px);
+    height: 54px;
+    margin: 0 auto 16px;
+    padding: 0 14px;
+    border: 1px solid rgba(206, 99, 131, 0.2);
+    border-radius: 18px;
+    background: rgba(250, 245, 236, 0.92);
+    box-shadow: 0 8px 24px rgba(153, 76, 103, 0.12);
+    backdrop-filter: blur(12px);
+}
+
+.botao-tema {
+    position: absolute;
+    right: 14px;
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--rosa-forte);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.botao-tema:hover {
+    transform: scale(1.12);
+}
+
+.botao-tema svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+}
+
+.botao-tema .icone-lua {
+    transform: rotate(45deg);
+}
+
+.botao-tema .icone-sol {
+    display: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 2;
+}
+
+.botao-tema .icone-sol circle {
+    fill: currentColor;
+    stroke: none;
+}
+
+.marca {
+    flex: 1;
+    margin: 0;
+    color: var(--rosa-forte);
+    font-size: clamp(12px, 3.8vw, 16px);
+    font-weight: 700;
+    text-align: center;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 32px, 540px);
+    margin: 0 auto;
+}
+
+.calendario,
+.detalhes {
+    border: 1px solid rgba(206, 99, 131, 0.2);
+    background: var(--painel);
+    box-shadow: 0 16px 45px rgba(153, 76, 103, 0.16);
+    backdrop-filter: blur(12px);
+}
+
+.ano-calendario {
+    width: fit-content;
+    min-width: 96px;
+    margin: 0 auto 10px;
+    padding: 7px 20px;
+    border: 1px solid rgba(206, 99, 131, 0.16);
+    border-radius: 999px;
+    background: var(--painel);
+    box-shadow: 0 5px 16px rgba(153, 76, 103, 0.1);
+    color: var(--rosa-forte);
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.calendario {
+    position: relative;
+    background: var(--creme);
+    padding: clamp(16px, 5vw, 24px);
+    border-radius: 22px;
+}
+
+.calendario::before,
+.calendario::after {
+    position: absolute;
+    top: -30px;
+    width: 70px;
+    height: 31px;
+    border: 1px solid rgba(206, 99, 131, 0.2);
+    border-bottom: 0;
+    border-radius: 70px 70px 0 0;
+    background: var(--creme);
+    content: "";
+    pointer-events: none;
+}
+
+.calendario::before {
+    left: 12%;
+}
+
+.calendario::after {
+    right: 12%;
+}
+
+.navegacao {
+    display: grid;
+    grid-template-columns: 36px 130px 36px;
+    align-items: center;
+    justify-content: center;
+    column-gap: 12px;
+}
+
+.mes-destaque {
+    display: grid;
+    min-height: 48px;
+    place-items: center;
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(233, 103, 145, 0.2);
+}
+
+.navegacao h2 {
+    margin: 8px 0;
+    color: var(--rosa-forte);
+    font-family: inherit;
+    font-size: clamp(14px, 4vw, 17px);
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.navegacao button {
+    position: relative;
+    isolation: isolate;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.navegacao button::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 28px;
+    height: 20px;
+    background: currentColor;
+    content: "";
+    transform: translate(-50%, -50%);
+    clip-path: polygon(0 50%, 42% 0, 42% 30%, 100% 30%, 100% 70%, 42% 70%, 42% 100%);
+    z-index: 1;
+}
+
+.navegacao button::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 28px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(233, 103, 145, 0.34);
+    content: "";
+    filter: blur(7px);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.navegacao #anterior {
+    color: #e96791;
+}
+
+.navegacao #proximo {
+    color: #e96791;
+    transform: scaleX(-1);
+}
+
+.navegacao button:hover {
+    transform: scale(1.08);
+    opacity: 0.76;
+}
+
+.navegacao #proximo:hover {
+    transform: scaleX(-1) scale(1.08);
+}
+
+.dias-semana,
+.dias {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: clamp(4px, 1.8vw, 8px);
+    margin-top: 16px;
+}
+
+.dias-semana {
+    align-items: center;
+    margin-top: 14px;
+    padding: 4px 0;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(233, 103, 145, 0.2);
+}
+
+.dias-semana span {
+    padding: 3px 0;
+    color: var(--texto-suave);
+    font-size: clamp(11px, 3.2vw, 13px);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-align: center;
+}
+
+.dia,
+.dia-vazio {
+    width: 100%;
+    aspect-ratio: 1;
+    min-width: 0;
+}
+
+.dia {
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: var(--texto);
+    font-size: clamp(12px, 3.5vw, 15px);
+    font-weight: 700;
+    transition: transform 0.16s ease, filter 0.16s ease, border-color 0.16s ease;
+}
+
+.dia:hover {
+    z-index: 1;
+    transform: translateY(-2px) scale(1.04);
+    filter: saturate(1.12);
+}
+
+.dia:active {
+    transform: scale(0.94);
+}
+
+.disponivel {
+    background: var(--verde);
+}
+
+.ocupado {
+    background: var(--vermelho);
+    color: #783c5d;
+}
+
+.passado {
+    background: #f0edf1;
+    color: #a59aa4;
+}
+
+.dia.selecionado {
+    border-color: var(--rosa-forte);
+    box-shadow: 0 0 0 2px rgba(207, 92, 145, 0.16), 0 0 16px rgba(207, 92, 145, 0.18);
+}
+
+.dia:focus-visible,
+.navegacao button:focus-visible,
+.botao-recarregar:focus-visible,
+.botao-tema:focus-visible {
+    outline: 3px solid var(--rosa-forte);
+    outline-offset: 3px;
+}
+
+.legenda {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 22px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 18px auto 0;
+    padding: 11px 18px;
+    border: 1px solid rgba(206, 99, 131, 0.16);
+    border-radius: 999px;
+    background: rgba(250, 245, 236, 0.88);
+    box-shadow: 0 5px 18px rgba(153, 76, 103, 0.1);
+    color: var(--texto-suave);
+    font-size: 13px;
+}
+
+.legenda span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.indicador {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border: 1px solid rgba(86, 56, 78, 0.08);
+    border-radius: 50%;
+}
+
+.detalhes {
+    min-height: 78px;
+    margin-top: 16px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.detalhes h3 {
+    margin: 0 0 8px;
+    color: var(--rosa-forte);
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.detalhes p {
+    margin: 8px 0;
+    color: var(--texto-suave);
+}
+
+.detalhes .status-ocupado {
+    font-weight: 700;
+}
+
+.detalhes .status-data {
+    font-weight: 700;
+}
+
+.detalhes strong {
+    color: var(--texto);
+}
+
+.rodape {
+    margin-top: 22px;
+    color: var(--texto-suave);
+    font-size: 12px;
+    text-align: center;
+}
+
+.botao-recarregar {
+    display: block;
+    margin: 12px auto 0;
+    padding: 11px 18px;
+    border: 1px solid rgba(206, 99, 131, 0.24);
+    border-radius: 12px;
+    background: #fbb6c4;
+    color: #783c5d;
+    transition: background 0.18s ease;
+}
+
+.botao-recarregar:hover {
+    background: #f7a0b8;
+}
+
+@media (max-width: 380px) {
+    body {
+        padding-top: 16px;
+    }
+
+    .barra-superior {
+        width: min(100% - 20px, 540px);
+    }
+
+    .container {
+        width: min(100% - 20px, 540px);
+    }
+
+    .calendario {
+        padding: 13px 10px;
+    }
+
+    .dia {
+        border-radius: 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+:root[data-theme="escuro"] {
+    color-scheme: dark;
+    --painel: rgba(47, 39, 49, 0.94);
+    --creme: #2b232e;
+    --texto: #f5eaf0;
+    --texto-suave: #c4adba;
+    --verde: #a6c873;
+    --vermelho: #653849;
+}
+
+:root[data-theme="escuro"] body {
+    background:
+        radial-gradient(ellipse at 18% 16%, rgba(48, 75, 112, 0.54), transparent 31%),
+        radial-gradient(ellipse at 85% 30%, rgba(35, 66, 112, 0.66), transparent 38%),
+        radial-gradient(ellipse at 24% 82%, rgba(43, 57, 86, 0.74), transparent 34%),
+        radial-gradient(ellipse at 88% 91%, rgba(49, 79, 128, 0.58), transparent 40%),
+        linear-gradient(145deg, #151e30, #202d46 48%, #1b2639);
+}
+
+:root[data-theme="escuro"] body::before {
+    opacity: 0.08;
+}
+
+:root[data-theme="escuro"] .barra-superior {
+    border-color: rgba(0, 0, 0, 0.65);
+    background: rgba(43, 35, 46, 0.96);
+    box-shadow: 0 8px 24px rgba(20, 20, 24, 0.62);
+}
+
+:root[data-theme="escuro"] .marca,
+:root[data-theme="escuro"] .botao-tema {
+    color: #fff;
+}
+
+:root[data-theme="escuro"] .calendario,
+:root[data-theme="escuro"] .detalhes {
+    border-color: rgba(0, 0, 0, 0.65);
+    box-shadow: 0 16px 45px rgba(20, 20, 24, 0.68);
+}
+
+:root[data-theme="escuro"] .ano-calendario,
+:root[data-theme="escuro"] .legenda {
+    border-color: rgba(0, 0, 0, 0.65);
+    box-shadow: 0 5px 18px rgba(20, 20, 24, 0.6);
+}
+
+:root[data-theme="escuro"] .ano-calendario,
+:root[data-theme="escuro"] .calendario,
+:root[data-theme="escuro"] .mes-destaque {
+    color: #fff;
+}
+
+:root[data-theme="escuro"] .ano-calendario,
+:root[data-theme="escuro"] .navegacao h2 {
+    color: #fff;
+}
+
+:root[data-theme="escuro"] .dias-semana span,
+:root[data-theme="escuro"] .dia {
+    color: #fff;
+}
+
+:root[data-theme="escuro"] .mes-destaque,
+:root[data-theme="escuro"] .dias-semana {
+    background: rgba(47, 39, 49, 0.94);
+    box-shadow: 0 4px 16px rgba(20, 20, 24, 0.62);
+}
+
+:root[data-theme="escuro"] .calendario::before,
+:root[data-theme="escuro"] .calendario::after {
+    border-color: rgba(0, 0, 0, 0.65);
+}
+
+:root[data-theme="escuro"] .navegacao button::after {
+    width: 34px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.88);
+    filter: blur(9px);
+}
+
+:root[data-theme="escuro"] .navegacao #anterior,
+:root[data-theme="escuro"] .navegacao #proximo {
+    color: #fff;
+}
+
+:root[data-theme="escuro"] .ocupado {
+    background: #b83256;
+    color: #fff;
+}
+
+:root[data-theme="escuro"] .passado {
+    background: #35303a;
+    color: #fff;
+}
+
+:root[data-theme="escuro"] .dia.selecionado {
+    border-color: #111;
+    box-shadow: 0 0 0 2px rgba(35, 35, 40, 0.48), 0 0 16px rgba(20, 20, 24, 0.62);
+}
+
+:root[data-theme="escuro"] .legenda {
+    background: rgba(47, 39, 49, 0.94);
+}
+
+:root[data-theme="escuro"] .indicador {
+    border-color: rgba(0, 0, 0, 0.65);
+}
+
+:root[data-theme="escuro"] .botao-tema .icone-lua {
+    display: none;
+}
+
+:root[data-theme="escuro"] .botao-tema .icone-sol {
+    display: block;
+}
+
+:root[data-theme="escuro"] .botao-recarregar {
+    border-color: rgba(0, 0, 0, 0.65);
+    background: #684052;
+    color: #f7d5df;
+}
+
+:root[data-theme="escuro"] .botao-recarregar:hover {
+    background: #805068;
+}
