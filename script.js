@@ -1,3 +1,8 @@
+
+
+
+
+
 const SUPABASE_URL = "https://mobuouauxjknoasjvwgi.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_NkklrlYo6XN1c3qKGmNUYg_jqlvVE0V";
 // 2. INTEGRAÇÃO COM O TELEGRAM
@@ -214,10 +219,10 @@ function mostrarCalendario() {
         botao.type = "button";
         botao.classList.add("dia");
 
-        if (evento) {
-            botao.classList.add("ocupado");
-        } else if (passado) {
+        if (passado) {
             botao.classList.add("passado");
+        } else if (evento) {
+            botao.classList.add("ocupado");
         } else {
             botao.classList.add("disponivel");
         }
@@ -233,10 +238,10 @@ function mostrarCalendario() {
 
         let situacao = "disponível";
 
-        if (evento) {
-            situacao = "ocupado";
-        } else if (passado) {
+        if (passado) {
             situacao = "data passada";
+        } else if (evento) {
+            situacao = "ocupado";
         }
 
         botao.setAttribute(
@@ -276,17 +281,19 @@ function mostrarDetalhes(data, evento) {
         hoje.getDate()
     );
 
-   
+    if (dataEscolhida < dataHoje) {
+        const mensagem = document.createElement("p");
+        mensagem.classList.add("status-data");
+        mensagem.textContent = "Esta data já passou!";
+        detalhes.appendChild(mensagem);
+        return;
+    }
 
     if (!evento) {
         const mensagem = document.createElement("p");
         mensagem.classList.add("status-data");
 
-        if (dataEscolhida < dataHoje) {
-            mensagem.textContent = "Esta data já passou!";
-        } else {
-            mensagem.textContent = "Data disponível!";
-        }
+        mensagem.textContent = "Data disponível!";
 
         detalhes.appendChild(mensagem);
         return;
