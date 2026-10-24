@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de Partidões</title>
+    <link rel="stylesheet" href="style.css?v=20261023-6">
+</head>
+<body>
+    <header class="barra-superior">
+        <h1 class="marca">CALENDÁRIO</h1>
+        <button
+            id="alternar-tema"
+            class="botao-tema"
+            type="button"
+            aria-label="Ativar modo escuro"
+            aria-pressed="false"
+            title="Ativar modo escuro"
+        >
+            <svg class="icone-lua" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z" />
+            </svg>
+            <svg class="icone-sol" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+            </svg>
+        </button>
+    </header>
+
+    <main class="container">
+        <div id="ano-calendario" class="ano-calendario" aria-live="polite"></div>
+        <div id="calendario" class="calendario">
+            <div class="navegacao">
+                <button id="anterior" class="seta-anterior" type="button" aria-label="Mês anterior"></button>
+                <div class="mes-destaque">
+                    <h2 id="mes-ano"></h2>
+                </div>
+                <button id="proximo" class="seta-proxima" type="button" aria-label="Próximo mês"></button>
+            </div>
+
+            <div class="dias-semana">
+                <span>Dom</span>
+                <span>Seg</span>
+                <span>Ter</span>
+                <span>Qua</span>
+                <span>Qui</span>
+                <span>Sex</span>
+                <span>Sáb</span>
+            </div>
+
+            <div id="dias" class="dias"></div>
+        </div>
+
+        <div id="legenda" class="legenda">
+            <span><i class="indicador disponivel" aria-hidden="true"></i> Disponível</span>
+            <span><i class="indicador ocupado" aria-hidden="true"></i> Ocupado</span>
+        </div>
+
+        <div id="detalhes" class="detalhes">
+            Selecione uma data para ver as informações.
+        </div>
+
+        <footer class="rodape">@lupinuswolf</footer>
+    </main>
+
+    
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="script.js?v=20261023-4"></script>
+
+</body>
+</html>
