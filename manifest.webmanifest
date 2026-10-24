@@ -1,0 +1,15 @@
+{
+  "name": "₊⁺ ૮꒰ •͈ ·̭ •͈ ꒱ა ⁺₊",
+  "short_name": "૮꒰ •͈ ·̭ •͈ ꒱ა",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7a0b8",
+  "theme_color": "#f7a0b8",
+  "icons": [
+    {
+      "src": "favicon.png?v=20261023-2",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
