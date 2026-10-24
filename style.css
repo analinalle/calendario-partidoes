@@ -434,6 +434,27 @@ button {
     text-align: center;
 }
 
+.botao-suporte {
+    display: block;
+    width: fit-content;
+    margin: 16px auto 0;
+    padding: 10px 18px;
+    border: 1px solid rgba(206, 99, 131, 0.24);
+    border-radius: 999px;
+    background: var(--painel);
+    box-shadow: 0 5px 18px rgba(153, 76, 103, 0.1);
+    color: var(--rosa-forte);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.botao-suporte:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(153, 76, 103, 0.16);
+}
+
 .botao-recarregar {
     display: block;
     margin: 12px auto 0;
